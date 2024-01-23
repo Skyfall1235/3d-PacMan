@@ -15,10 +15,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Ghost : MonoBehaviour
 {
-    internal NavMeshAgent navMeshAgent;
     [SerializeField] internal GameObject player;
     public UnityEvent CollideWithPlayer = new UnityEvent();
     internal bool continousUpdate = false;
+    internal NavMeshAgent navMeshAgent;
 
     [SerializeField] internal float ghostSpeed = 1.0f;
 
@@ -44,13 +44,15 @@ public class Ghost : MonoBehaviour
         }
 
     }
+
+    #region Overridable Methods
     public virtual void DetermineNewTarget()
     {
-
+        //called when the target needs to be updated
     }
     public virtual void UpdateTargetImmediately()
     {
-
+        //called if the continues update is true
     }
 
     public virtual void SetTargetPosition(Vector3 targetPosition)
@@ -61,12 +63,18 @@ public class Ghost : MonoBehaviour
 
     public virtual void SetRandomTargetPosition()
     {
-
+        //gives a random location within the 
         Vector3 randomPosition = new Vector3(Random.Range(-10f, 10f), 0f, Random.Range(-10f, 10f));
+        while(IsInsideWall(randomPosition))
+        {
+            //should regenerate until the path location is outside of a wall
+            randomPosition = new Vector3(Random.Range(-10f, 10f), 0f, Random.Range(-10f, 10f));
+        }
         SetTargetPosition(randomPosition);
     }
+    #endregion
 
-
+    #region Internal methods
     internal Vector3 PickRandomLocationInSquare(float squareSize)
     {
         float halfSize = squareSize / 2f;
@@ -89,7 +97,6 @@ public class Ghost : MonoBehaviour
 
         return randomPosition;
     }
-
     internal bool IsInsideWall(Vector3 position)
     {
         // Raycast to check if there's a collider with the tag "wall" at the given position
@@ -104,6 +111,7 @@ public class Ghost : MonoBehaviour
 
         return false;
     }
+    #endregion
 
     internal void OnCollisionEnter(Collision collision)
     {
