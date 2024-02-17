@@ -8,6 +8,7 @@ public class PinkyMovementAI : Ghost
 {
     public override void Start()
     {
+        //forces the model to continually update path
         continousUpdate = true;
     }
 
@@ -22,6 +23,7 @@ public class PinkyMovementAI : Ghost
         UpdateTargetPosition();
     }
 
+    //set the position to always be in front of the players current position
     private void UpdateTargetPosition()
     {
         if (player!= null)

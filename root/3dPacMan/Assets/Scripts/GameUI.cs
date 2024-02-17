@@ -34,16 +34,22 @@ public class GameUI : MonoBehaviour
         lifeCounter.text = $"Coins\n{coins}";
     }
 
+    /// <summary>
+    /// reduces one life, and if there are no more lives, the lose event is evoked
+    /// </summary>
     public void ReduceLife()
     {
         lives--;
-        if (coins == 0)
+        if (coins <= 0)
         {
             //you lose
             Lose.Invoke();
         }
     }
 
+    /// <summary>
+    /// adds one coin to the counter, and if the the coin amount reaches the maxmimum coin value, the win event is evoked
+    /// </summary>
     public void AddCoin()
     {
         coins++;
@@ -54,6 +60,9 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// reloads the game scene
+    /// </summary>
     public void Reset()
     {
         SceneManager.LoadScene("gameScene");

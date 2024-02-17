@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////
-///Assignment/Lab/Project: PacMan
+///Assignment/Lab/Project: PacMan - FROM PRIOR PROJECT
 /////Name: Wyatt Murray
 /////Section: SGD285.4147
 /////Instructor: Aurore Locklear
